@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notification Details - OrgSync+</title>
+  <link rel="stylesheet" href="homepageStudent.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Container */
+    .notif-container {
+      margin: 40px auto;
+      max-width: 600px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      padding: 20px;
+    }
+
+    .notif-header {
+      font-size: 18px;
+      font-weight: bold;
+      color: #002766;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 8px;
+    }
+
+    /* Each notification box */
+    .notif-box {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: #e9f1ff;
+      border-radius: 10px;
+      padding: 12px 15px;
+      margin-bottom: 12px;
+    }
+
+    .notif-icon {
+      font-size: 20px;
+      color: red;
+      flex-shrink: 0;
+    }
+
+    .notif-details {
+      flex: 1;
+    }
+
+    .notif-details b {
+      font-size: 15px;
+      color: #002766;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .notif-details small {
+      color: #666;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .notif-details p {
+      margin: 0;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo-section">
+      <img src="LOGO.png" alt="Org Logo" class="logo">
+      <h1>OrgSync+</h1>
+    </div>
+  </header>
+
+  <main>
+    <div class="notif-container">
+      <div class="notif-header">Notification Details</div>
+      <div id="notifDetails"></div>
+    </div>
+  </main>
+
+  <script>
+    // Sample notification data
+    const notifications = {
+      "1": {
+        title: "SAO updated status on File Name 1",
+        date: "Sep 22, 2025 - 10:08 AM",
+        content: "The Student Affairs Office updated the status of your file: File Name 1."
+      },
+      "5": {
+        title: "SAO left a comment on File Name 5",
+        date: "Sep 23, 2025 - 11:08 AM",
+        content: "The Student Affairs Office added a comment on your file: File Name 5. Please review it."
+      }
+    };
+
+    // Get ?id=... from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const notifId = urlParams.get("id");
+
+    const notif = notifications[notifId];
+    const container = document.getElementById("notifDetails");
+
+    if (notif) {
+      container.innerHTML = `
+        <div class="notif-box">
+          <span class="notif-icon">❗</span>
+          <div class="notif-details">
+            <b>${notif.title}</b>
+            <small>${notif.date}</small>
+            <p>${notif.content}</p>
+          </div>
+        </div>
+      `;
+    } else {
+      container.innerHTML = "<p>No notification details found.</p>";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="calendar.css">
+</head>
+<body>
+  <div class="calendar-container">
+    <!-- Sidebar Calendar (Mini) -->
+    <div class="mini-calendar">
+      <header>
+        <p class="current-date"></p>
+        <div class="icons">
+          <span id="prev">&#10094;</span>
+          <span id="next">&#10095;</span>
+        </div>
+      </header>
+      <div class="calendar">
+        <ul class="weeks">
+          <li>Su</li>
+          <li>Mo</li>
+          <li>Tu</li>
+          <li>We</li>
+          <li>Th</li>
+          <li>Fr</li>
+          <li>Sa</li>
+        </ul>
+        <ul class="days"></ul>
+      </div>
+    </div>
+
+    <!-- Main Weekly Schedule -->
+    <div class="schedule">
+      <div class="schedule-header">
+        <div class="time-col"></div>
+        <div class="day-col">SUN</div>
+        <div class="day-col">MON</div>
+        <div class="day-col">TUE</div>
+        <div class="day-col">WED</div>
+        <div class="day-col">THU</div>
+        <div class="day-col">FRI</div>
+        <div class="day-col">SAT</div>
+      </div>
+      <div class="schedule-body">
+        <!-- Hours -->
+        <div class="time-col">
+          <div>7 AM</div>
+          <div>8 AM</div>
+          <div>9 AM</div>
+          <div>10 AM</div>
+          <div>11 AM</div>
+          <div>12 PM</div>
+          <div>1 PM</div>
+          <div>2 PM</div>
+          <div>3 PM</div>
+          <div>4 PM</div>
+          <div>5 PM</div>
+          <div>6 PM</div>
+          <div>7 PM</div>
+          <div>8 PM</div>
+          <div>9 PM</div>
+          <div>10 PM</div>
+          <div>11 PM</div>
+          <div>12 PM</div>
+        </div>
+        <!-- Empty slots for events -->
+        <div class="day-col"></div>
+        <div class="day-col"></div>
+        <div class="day-col"></div>
+        <div class="day-col"></div>
+        <div class="day-col"></div>
+        <div class="day-col"></div>
+        <div class="day-col"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="calendar.js"></script>
+</body>
+</html>

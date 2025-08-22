@@ -1,0 +1,314 @@
+/* --- RESET SOME DEFAULT BROWSER STYLES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+/* --- BODY STYLING --- */
+body {
+    font-family: Arial, sans-serif;
+    background: url("/GRAPHICS/CTU_BG.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+}
+  
+/* --- NAVBAR STYLING --- */
+.navbar {
+    background: #1a73e8;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 20px;
+    position: relative;
+    z-index: 1100;
+}
+/* --- LOGO SECTION --- */ 
+.logo-section {
+    display: flex;
+    align-items: center;
+}
+  
+.logo {
+    height: 70px;
+    margin-right: 10px;
+}
+  
+.logo-section h1 {
+    font-size: 20px;
+    font-family: 'League Spartan', sans-serif;
+    margin: 0;
+    gap: 5;
+    position: relative;
+    top: 5px;
+    
+}
+.logo-section h1 span {
+    font-weight: 700;
+  text-shadow: 0 0 20px rgba(255,255,255,0.9),
+               0 0 6px rgba(255,255,255,0.9);
+}
+ .org {
+      color: #002147; /* Navy Blue */
+    }
+    .sync {
+      color: #ff6600; /* Orange */
+    }
+  
+/* --- SEARCH BAR --- */
+.search-bar {
+    position: absolute;
+    top: 18px;
+    left: 70%;
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+  
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    width: 150px;
+    height: 30px;
+    font-size: 14px;
+}
+  
+.search-icon {
+    width: 40px;
+    height: 20px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+  
+/* --- NAVBAR ICONS --- */
+.nav-icons {
+    display: flex;
+    gap: 15px;
+}
+  
+.icon {
+    height: 28px;
+    cursor: pointer;
+}
+
+/* --- NOTIFICATION BELL & BADGE --- */
+.icon-bell {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: red;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 6px;
+    line-height: 1;
+    min-width: 18px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* --- DROPDOWN NOTIF PANEL --- */
+.notif-dropdown {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 60px;
+    background: #7f92c4;
+    min-width: 500px;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    padding: 20px;
+    z-index: 100;
+}
+
+.notif-dropdown.show {
+    display: block;
+}
+
+.notif-title {
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.notif-item {
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.notif-item:hover {
+    background: #ffffff;
+}
+
+.notif-item span {
+    display: block;
+    font-size: 14px;
+    color: #222;
+}
+
+.notif-item small {
+    font-size: 12px;
+    color: #666;
+}
+
+/* --- ORANGE TOP BAR (MENU) --- */
+.topbar {
+    position:sticky;   /* stays at top of sidebar */
+    top: 0;
+    background: #f37021;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    z-index: 2;
+}
+
+.topbar .menu-toggle {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    width: 100%;   /* easier click */
+    text-align: center;
+}
+  
+/* --- SIDEBAR --- */
+.sidebar {
+    position: fixed;
+    left: 0;
+    width: 240px;
+    height: 100%;
+    background: rgba(255,255,255,0.95);
+    box-shadow: rgba(0,0,0,0.2) 2px 0px 5px;
+    transition: width 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+    overflow: hidden;
+}
+  
+.sidebar.hidden { transform: translateX(-100%); }
+.sidebar.collapsed { width: 100px; }
+  
+/* Sidebar Menu */
+.sidebar ul { 
+    list-style: none; 
+    margin-top: 5px;   /* prevents overlap with topbar */
+}
+.sidebar ul li { border-bottom: 1px solid rgba(0,0,0,0.05); }
+  
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #0049ab !important;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+    gap: 8px;
+}
+  
+.sidebar ul li a:hover { background: #eaf2fd; }
+  
+.sidebar ul li a span {
+    transition: opacity 0.3s ease, width 0.3s ease;
+}
+  
+.sidebar.collapsed ul li a span {
+    opacity: 0; 
+    width: 0; 
+    overflow: hidden;
+}
+.sidebar .dropdown-content li a {
+    color: #ffffff !important;
+}
+
+/* Keep hover readable */
+.sidebar .dropdown-content li a:hover {
+    background: #ffffff;
+    color: #0049ab !important;
+}
+/* Dropdown in Sidebar */
+.dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    background: #f5f6f7;
+}
+  
+.dropdown-content.open { max-height: 500px; background:#0049ab;  }
+  
+/* Make only Operations submenu text white */
+.dropdown-content li a {
+    padding: 10px 25px;
+    color: #ffffff !important;   /* changed from #0049ab */
+    font-size: 14px;
+}
+
+.dropdown-content li a:hover {
+    background: #ffffff;
+    color: #0049ab !important;   /* hover stays blue on white background */
+}
+/* --- MAIN SECTION --- */
+.main-section {
+    margin-left: 240px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+  
+.sidebar.collapsed ~ .main-section { margin-left: 60px; }
+  
+/* --- QUOTE --- */
+.quote {
+    position: fixed;
+    right: 20px;
+    top: 150px;
+    font-size: 25px;
+    color: rgba(26,34,126,0.56);
+    font-style: italic;
+    max-width: 700px;
+    text-align: right;
+    letter-spacing: 2px;
+}
+
+/* --- script --- */
+/* Sidebar collapsed state - icons only */
+.sidebar.collapsed {
+    width: 90px; /* just enough for icons */
+}
+
+/* Center icons vertically & horizontally */
+.sidebar.collapsed ul li a {
+    justify-content: center;
+    padding: 20px; /* tight box */
+}
+
+/* Hide labels when collapsed */
+.sidebar.collapsed ul li a span {
+    display: none;
+}
+
+/* Dropdown content collapsed - icons only */
+.sidebar.collapsed .dropdown-content li a {
+    justify-content: center;
+    padding: 12px;
+}
+
+.sidebar.collapsed .dropdown-content li a span {
+    display: none;
+}

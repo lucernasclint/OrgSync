@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OrgSync+</title>
+  <link rel="shortcut icon" href="/GRAPHICS/favicon_io/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Google Font: League Spartan -->
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'League Spartan', Arial, sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+      background: #000;
+    }
+
+    /* Navbar */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 28, 64, 0.85); /* Navy overlay */
+      padding: 45px 20px; /* Updated padding */
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    header .logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header .logo img {
+      width: 50px;
+      height: 50px;
+    }
+
+    header .logo-text {
+      font-size: 28px;
+      font-weight: 700;
+    }
+    header .logo-text span {
+    text-shadow: 0 0 4px rgba(255,255,255,0.9),
+               0 0 6px rgba(255,255,255,0.6);
+    animation: glow 3s infinite alternate;
+    }
+    .org {
+      color: #0258ba; /* Blue */
+    }
+    .sync {
+      color: #ff6600; /* Orange */
+    }
+
+header .login {
+  position: absolute;
+  right: 10px;
+  font-size: 50px;
+  cursor: pointer;
+  border-radius: 50px;
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 0 0 6px rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+header .login i {
+  transition: transform 0.4s ease;
+}
+
+header .login span.login-text {
+  opacity: 0;
+  margin-left: 0;
+  white-space: nowrap;
+  transition: opacity 0.4s ease, margin-left 0.4s ease;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+header .login:hover i {
+  transform: scale(0.8); /* shrink icon slightly */
+}
+
+header .login:hover span.login-text {
+  opacity: 1;
+  margin-left: 10px; /* appear beside icon */
+}
+
+
+    /* Intro Section with Slideshow BG */
+    .intro {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background slideshow */
+    .intro .slideshow img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+      z-index: -1;
+    }
+    .intro .slideshow img.active {
+      opacity: 1;
+    }
+
+    /* Center logo + text */
+    /* Center logo + text */
+.intro .center-logo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  opacity: 0;
+  animation: fadeInZoom 2.5s forwards;
+  filter: drop-shadow(0 0 3px rgba(255,255,255,0.8)); /* Glow on whole group */
+}
+
+/* Make logo image glow */
+.intro .center-logo img {
+  width: 160px;
+  animation: glowPulse 3s infinite alternate;
+}
+
+/* Text styling with glow */
+.intro .center-logo span {
+  font-size: 48px;
+  font-weight: 700;
+  text-shadow: 0 0 4px rgba(255,255,255,0.9),
+               0 0 6px rgba(255,255,255,0.6);
+  animation: glowPulse 3s infinite alternate;
+}
+
+@keyframes glowPulse {
+  from {
+    filter: drop-shadow(0 0 6px rgba(255,255,255,0.7));
+  }
+  to {
+    filter: drop-shadow(0 0 20px rgba(255,255,255,1));
+  }
+}
+
+
+    /* Welcoming text */
+    .intro-text {
+      margin-top: 30px;
+      max-width: 800px;
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 1.6;
+      opacity: 0;
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+      animation: fadeIn 2s forwards;
+      animation-delay: 2.8s;
+    }
+
+    /* Animations */
+    @keyframes fadeInZoom {
+      from {opacity: 0; transform: scale(0.6);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    /* Loading overlay */
+#loadingOverlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#loadingOverlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.loading-logo {
+  width: 180px;
+  animation: spinFade 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes spinFade {
+  0% { opacity: 0.5; transform: scale(0.7) rotate(0deg); }
+  100% { opacity: 1; transform: scale(1) rotate(360deg); }
+}
+.footer {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: #ffffff;
+  text-shadow: 0 0 4px rgba(0,0,0,0.5);
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0; /* Start hidden */
+  animation: fadeInFooter 1s ease forwards;
+  animation-delay: 1.5s; /* Delay so it appears after login box */
+}
+
+@keyframes fadeInFooter {
+  to { opacity: 1; }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">
+      <img src="GRAPHICS/LOGO.png" alt="OrgSync+ Logo">
+      <div class="logo-text">
+        <span class="org">Org</span><span class="sync">Sync+</span>
+      </div>
+    </div>
+  <div class="login" onclick="goToLogin()">
+  <i class="fas fa-user-circle"></i>
+  <span class="login-text">Login</span>
+</div>
+
+</div>
+<!-- Loading overlay -->
+<div id="loadingOverlay">
+  <img src="GRAPHICS/LOGO.png" alt="OrgSync+ Logo" class="loading-logo">
+</div>
+
+
+</a>
+
+  </header>
+
+  <!-- Intro Section -->
+  <section class="intro">
+    <!-- Background Slideshow -->
+    <div class="slideshow">
+      <img src="GRAPHICS/SAS IMAGE 1.jpg" class="active" alt="Student Activity Scene 1">
+      <img src="GRAPHICS/SAS IMAGE 2.jpg" alt="Student Activity Scene 2">
+      <img src="GRAPHICS/SAS IMAGE 3.jpg" alt="Student Activity Scene 3">
+      <img src="GRAPHICS/SAS IMAGE 4.jpg" alt="Student Activity Scene 4">
+      <img src="GRAPHICS/SAS IMAGE 5.jpg" alt="Student Activity Scene 5">
+    </div>
+
+    <!-- Center Logo + Title -->
+    <div class="center-logo">
+      <img src="GRAPHICS/LOGO.png" alt="OrgSync+ Logo">
+      <span><span class="org">Org</span><span class="sync">Sync+</span></span>
+    </div>
+
+    <!-- Welcoming Intro Text -->
+    <p class="intro-text">
+      OrgSync+ is a centralized digital platform designed to streamline student organization management through automation, real-time monitoring, and actionable data insights. The system will digitize paper-based processes through signatory routing, document tracking, and centralized record-keeping.
+    </p>
+  </section>
+
+  <script>
+    // Background Slideshow for Intro
+    let slides = document.querySelectorAll(".intro .slideshow img");
+    let index = 0;
+
+    setInterval(() => {
+      slides[index].classList.remove("active");
+      index = (index + 1) % slides.length;
+      slides[index].classList.add("active");
+    }, 4000);
+    function goToLogin() {
+  const overlay = document.getElementById("loadingOverlay");
+  overlay.classList.add("active");
+
+  // Simulate loading (1.5s) then redirect
+  setTimeout(() => {
+    window.location.href = "login.html"; // your login page
+  }, 1500);
+}
+
+
+  </script>
+
+</body>
+<div class="footer">
+  Version 1.0.0 || Developed by BSIS 4-A <br> &copy; Cebu Technological University
+</div>
+
+</html>

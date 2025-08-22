@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OrgSync+</title>
+  <link rel="stylesheet" href="homepageStudent.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="navbar">
+    <div class="logo-section">
+      <img src="/GRAPHICS/LOGO.png" alt="Org Logo" class="logo">
+      <h1><span class="org">Org</span><span class="sync">Sync+</span></h1>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input type="text" placeholder="Search...">
+      <img src="/GRAPHICS/ICONS/search.png" alt="Search Icon" class="search-icon">
+    </div>
+
+    <!-- Icons -->
+    <div class="nav-icons">
+      <!-- Notifications -->
+      <div class="notif-wrapper">
+        <div class="icon-bell" onclick="toggleNotif()">
+          <img src="/GRAPHICS/ICONS/NOTIFS BELL.png" alt="Notifications" class="icon bell-icon">
+          <span class="notification-badge" id="notifCount">2</span>
+        </div>
+
+        <!-- Dropdown Notification Panel -->
+        <div class="notif-dropdown" id="notifDropdown">
+          <p class="notif-title"><b>NOTIFICATIONS / ALERT</b></p>
+          <div class="notif-item" onclick="openNotif('notifPanelStudent.html?id=1')">
+            <span>❗ SAO updated status on File Name 1</span>
+            <small>Sep 22, 2025 - 10:08 AM</small>
+          </div>
+          <div class="notif-item" onclick="openNotif('notifPanelStudent.html?id=2')">
+            <span>❗ SAO left a comment on File Name 5</span>
+            <small>Sep 23, 2025 - 11:08 AM</small>
+          </div>
+        </div>
+      </div>
+      <!-- User Profile -->
+      <img src="/GRAPHICS/ICONS/USER ICON.png" alt="User Profile" class="icon">
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar collapsed">
+    <div class="topbar">
+      <button class="menu-toggle" id="menuToggle">
+        MENU <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <ul class="menu">
+      <li><a href="#home" onclick="loadPage('home.html', this)"><i class="fas fa-home"></i> <span>Home</span></a></li>
+      <li><a href="#announcement" onclick="loadPage('announcementStudent.html', this)"><i class="fas fa-bullhorn"></i> <span>Announcement</span></a></li>
+      <li><a href="#calendar" onclick="loadPage('calendar.html', this)"><i class="fas fa-calendar"></i> <span>Calendar</span></a></li>
+      <li><a href="#"><i class="fas fa-gift"></i> <span>Leaderboard</span></a></li>
+
+      <!-- Operations Dropdown -->
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropdown-btn">
+          <i class="fas fa-file-alt"></i> 
+          <span>Operations</span> 
+          <i class="fas fa-chevron-down chevron-icon"></i>
+        </a>
+        <ul class="dropdown-content">
+          <li><a href="#"><i class="fas fa-users"></i> Personnel</a></li>
+          <li><a href="#"><i class="fas fa-building"></i> Organizations</a></li>
+          <li><a href="#"><i class="fas fa-certificate"></i> Accreditation</a></li>
+          <li><a href="#"><i class="fas fa-envelope"></i> Letters</a></li>
+          <li><a href="#"><i class="fas fa-calendar-alt"></i> Events</a></li>
+          <li><a href="#"><i class="fas fa-coins"></i> IGP</a></li>
+          <li><a href="#"><i class="fas fa-chart-line"></i> Reports</a></li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Main Section (dynamic content goes here) -->
+  <main class="main-section collapsed" id="main-section">  
+    <!-- Content from other pages will load here -->
+  </main>
+
+  <!-- JS -->
+  <script>
+    // Toggle dropdown
+    function toggleNotif() {
+      document.getElementById("notifDropdown").classList.toggle("show");
+    }
+
+    // Close notif if clicked outside
+    window.onclick = function(event) {
+      if (!event.target.closest('.notif-wrapper')) {
+        let dropdown = document.getElementById("notifDropdown");
+        if (dropdown.classList.contains('show')) {
+          dropdown.classList.remove('show');
+        }
+      }
+    }
+
+    function openNotif(url) {
+      window.location.href = url;
+    }
+
+    // Sidebar toggle
+    const menuToggle = document.getElementById("menuToggle");
+    const sidebar = document.querySelector(".sidebar");
+    const mainSection = document.querySelector(".main-section");
+
+    menuToggle.addEventListener("click", () => {
+      sidebar.classList.toggle("collapsed");
+      mainSection.classList.toggle("collapsed");
+
+      if (sidebar.classList.contains("collapsed")) {
+        document.querySelectorAll(".dropdown-content.open").forEach(dropdown => {
+          dropdown.classList.remove("open");
+        });
+      }
+    });
+
+    // Dropdown toggle
+    document.querySelectorAll(".dropdown-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        if (sidebar.classList.contains("collapsed")) {
+          e.preventDefault();
+          return;
+        }
+        const dropdown = btn.nextElementSibling;
+        dropdown.classList.toggle("open");
+      });
+    });
+
+    // Dynamic page loader
+ // Dynamic page loader with CSS
+ function loadPage(page, el = null) {
+    fetch(page)
+      .then(response => response.text())
+      .then(data => {
+        // Insert the HTML into <main>
+        document.getElementById("main-section").innerHTML = data;
+
+        // Highlight active link
+        document.querySelectorAll(".menu a").forEach(link => link.classList.remove("active"));
+        if (el) el.classList.add("active");
+
+        // Remove any previously loaded page-specific CSS
+        document.querySelectorAll("link[data-page-style]").forEach(link => link.remove());
+
+        // Add CSS dynamically if it exists
+        let cssFile = page.replace(".html", ".css");
+        fetch(cssFile, { method: "HEAD" }).then(res => {
+          if (res.ok) {
+            let linkTag = document.createElement("link");
+            linkTag.rel = "stylesheet";
+            linkTag.href = cssFile;
+            linkTag.setAttribute("data-page-style", "true");
+            document.head.appendChild(linkTag);
+          }
+        });
+      });
+  }
+
+  // Load default page on startup
+  window.onload = () => {
+    let hash = window.location.hash.substring(1) || "home";
+    let page = hash === "home" ? "home.html" : hash + ".html";
+    let link = document.querySelector(`.menu a[href="#${hash}"]`);
+    if (link) {
+      loadPage(page, link);
+      link.classList.add("active");
+    }
+  };
+  </script>
+</body>
+</html>
